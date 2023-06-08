@@ -37,9 +37,9 @@ namespace WinForm_GeoJson2Map_Sample
         JObject json;//読み込みとパースを1回だけに
         Bitmap canvas;//後で別のvoidでさらに描画するとき用(同じvoidでさらに描画するならvoid内でもok)
         double LatSta = 25;//緯度の始点(=地図の南端)
-        double LatEnd = 50;//緯度の始点(=地図の北端)
+        double LatEnd = 50;//緯度の終点(=地図の北端)
         double LonSta = 125;//経度の始点(=地図の西端)
-        double LonEnd = 150;//経度の始点(=地図の東端)
+        double LonEnd = 150;//経度の終点(=地図の東端)
         double ZoomW = 0;//横のズーム倍率(画像横ピクセル÷表示する経度の範囲)
         double ZoomH = 0;//縦のズーム倍率(画像縦ピクセル÷表示する緯度の範囲)
 
