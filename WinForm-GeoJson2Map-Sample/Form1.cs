@@ -55,8 +55,10 @@ namespace WinForm_GeoJson2Map_Sample
             g.Clear(Color.FromArgb(120, 120, 255));//背景色
             GraphicsPath Maps = new GraphicsPath();
             Maps.StartFigure();
-            foreach (JToken json_1 in json.SelectToken("features"))//各地域のデータにする処理
+            foreach (JToken json_1 in json.SelectToken("features"))//各地域のデータにする処理//ここで例外が発生した場合はQiitaの記事を参考に編集してください。
             {
+                if (json_1.SelectToken($"geometry.coordinates") == null)//Simplifyすると名前だけ残って座標データがなくなることがあるので除外
+                    continue;
                 if ((string)json_1.SelectToken("geometry.type") == "Polygon")//地域が1つのPolygonでできている場合
                 {
                     List<Point> points = new List<Point>();
@@ -99,6 +101,8 @@ namespace WinForm_GeoJson2Map_Sample
             //Maps.StartFigure();
             foreach (JToken json_1 in json.SelectToken("features"))
             {
+                if (json_1.SelectToken($"geometry.coordinates") == null)
+                    continue;
                 GraphicsPath Maps = new GraphicsPath();//GraphicsPathを地域ごとに作り描画
                 Maps.StartFigure();
                 if ((string)json_1.SelectToken("geometry.type") == "Polygon")
