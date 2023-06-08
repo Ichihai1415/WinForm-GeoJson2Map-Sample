@@ -57,19 +57,19 @@ namespace WinForm_GeoJson2Map_Sample
             Maps.StartFigure();
             foreach (JToken json_1 in json.SelectToken("features"))//各地域のデータにする処理//ここで例外が発生した場合はQiitaの記事を参考に編集してください。
             {
-                if (json_1.SelectToken($"geometry.coordinates") == null)//Simplifyすると名前だけ残って座標データがなくなることがあるので除外
+                if (json_1.SelectToken("geometry.coordinates") == null)//Simplifyすると名前だけ残って座標データがなくなることがあるので除外
                     continue;
                 if ((string)json_1.SelectToken("geometry.type") == "Polygon")//地域が1つのPolygonでできている場合
                 {
                     List<Point> points = new List<Point>();
-                    foreach (JToken json_2 in json_1.SelectToken($"geometry.coordinates[0]"))
+                    foreach (JToken json_2 in json_1.SelectToken("geometry.coordinates[0]"))
                         points.Add(new Point((int)(((double)json_2.SelectToken("[0]") - LonSta) * ZoomW), (int)((LatEnd - (double)json_2.SelectToken("[1]")) * ZoomH)));
                     if (points.Count > 2)
                         Maps.AddPolygon(points.ToArray());
                 }
                 else//地域が2つ以上のPolygonでできている場合(MultiPolygon)
                 {
-                    foreach (JToken json_2 in json_1.SelectToken($"geometry.coordinates"))
+                    foreach (JToken json_2 in json_1.SelectToken("geometry.coordinates"))
                     {
                         List<Point> points = new List<Point>();
                         foreach (JToken json_3 in json_2.SelectToken("[0]"))
@@ -101,21 +101,21 @@ namespace WinForm_GeoJson2Map_Sample
             //Maps.StartFigure();
             foreach (JToken json_1 in json.SelectToken("features"))
             {
-                if (json_1.SelectToken($"geometry.coordinates") == null)
+                if (json_1.SelectToken("geometry.coordinates") == null)
                     continue;
                 GraphicsPath Maps = new GraphicsPath();//GraphicsPathを地域ごとに作り描画
                 Maps.StartFigure();
                 if ((string)json_1.SelectToken("geometry.type") == "Polygon")
                 {
                     List<Point> points = new List<Point>();
-                    foreach (JToken json_2 in json_1.SelectToken($"geometry.coordinates[0]"))
+                    foreach (JToken json_2 in json_1.SelectToken("geometry.coordinates[0]"))
                         points.Add(new Point((int)(((double)json_2.SelectToken("[0]") - LonSta) * ZoomW), (int)((LatEnd - (double)json_2.SelectToken("[1]")) * ZoomH)));
                     if (points.Count > 2)
                         Maps.AddPolygon(points.ToArray());
                 }
                 else
                 {
-                    foreach (JToken json_2 in json_1.SelectToken($"geometry.coordinates"))
+                    foreach (JToken json_2 in json_1.SelectToken("geometry.coordinates"))
                     {
                         List<Point> points = new List<Point>();
                         foreach (JToken json_3 in json_2.SelectToken("[0]"))
