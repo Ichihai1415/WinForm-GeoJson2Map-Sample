@@ -57,7 +57,7 @@ namespace WinForm_GeoJson2Map_Sample
             Maps.StartFigure();
             foreach (JToken json_1 in json.SelectToken("features"))//各地域のデータにする処理//ここで例外が発生した場合はQiitaの記事を参考に編集してください。
             {
-                if (json_1.SelectToken($"geometry.coordinates") == null)//Simplifyすると名前だけ残って座標データがなくなることがあるので除外
+                if (json_1.SelectToken("geometry.coordinates") == null)//Simplifyすると名前だけ残って座標データがなくなることがあるので除外
                     continue;
                 if ((string)json_1.SelectToken("geometry.type") == "Polygon")//地域が1つのPolygonでできている場合
                 {
